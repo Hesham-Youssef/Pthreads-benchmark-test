@@ -321,13 +321,13 @@ int main(int argc, char const *argv[])
 
 
     int size = arr1[0][0];
-    for(int i=0;i<size;i++){
+    for(int i=0;i<size+1;i++){
         free(arr1[i]);
     }
     free(arr1);
 
     size = arr2[0][0];
-    for(int i=0;i<size;i++){
+    for(int i=0;i<size+1;i++){
         free(arr2[i]);
     }
     free(arr2);
