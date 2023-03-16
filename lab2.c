@@ -78,7 +78,6 @@ void mul_per_matrix(int** arr1, int** arr2, char* fileName){
     if(fileName == NULL){
         fp = fopen("c_per_matrix.txt", "w");
     }else{
-        fileName = realloc(fileName, strlen(fileName));
         strncat(fileName, "_per_matrix.txt", 16);
         fp = fopen(fileName, "w");
     }
@@ -100,7 +99,7 @@ void mul_per_matrix(int** arr1, int** arr2, char* fileName){
         free(res[i]);
     }
     free(res);
-
+    
     fclose(fp);
     printf("Per matrix method:\nNumber of threads used = 1\n");
 }
@@ -150,7 +149,6 @@ void mul_per_row(int** arr1, int** arr2, char* fileName){
     if(fileName == NULL){
         fp = fopen("c_per_row.txt", "w");
     }else{
-        fileName = realloc(fileName, strlen(fileName));
         strncat(fileName, "_per_row.txt", 13);
         fp = fopen(fileName, "w");
     }
@@ -171,8 +169,9 @@ void mul_per_row(int** arr1, int** arr2, char* fileName){
     for(int i=0;i<rows;i++){
         free(res[i]);
     }
-    free(res);
 
+    free(res);
+    fclose(fp);
     printf("Per row method:\nNumber of threads used = %d\n", rows);
 }
 
@@ -222,11 +221,12 @@ void mul_per_element(int** arr1, int** arr2, char* fileName){
         }
     }
 
+
+
     if(fileName == NULL){
         fp = fopen("c_per_element.txt", "w");
     }else{
-        fileName = realloc(fileName, strlen(fileName));
-        strncat(fileName, "_per_element.txt", 17);
+        strncat(fileName, "_per_element.txt", 16);
         fp = fopen(fileName, "w");
     }
     if (fp == NULL) {
@@ -247,7 +247,6 @@ void mul_per_element(int** arr1, int** arr2, char* fileName){
         free(res[i]);
     }
     free(res);
-
     fclose(fp);
     printf("Per row method:\nNumber of threads used = %d\n", rows*cols);
 }
@@ -280,7 +279,7 @@ int main(int argc, char const *argv[])
     char* des;
 
     if(argc == 4){
-        des = calloc(strlen(argv[3]), sizeof(char));
+        des = calloc(strlen(argv[3])+18, sizeof(char));
         strncpy(des, argv[3], strlen(argv[3]));
     }else{
         des = NULL;
@@ -294,7 +293,8 @@ int main(int argc, char const *argv[])
     printf("Microseconds taken: %lu\n\n", stop.tv_usec - start.tv_usec);
 
     if(argc == 4){
-        des = calloc(strlen(argv[3]), sizeof(char));
+        free(des);
+        des = calloc(strlen(argv[3])+18, sizeof(char));
         strncpy(des, argv[3], strlen(argv[3]));
     }else{
         des = NULL;
@@ -307,7 +307,8 @@ int main(int argc, char const *argv[])
     printf("Microseconds taken: %lu\n\n", stop.tv_usec - start.tv_usec);
 
     if(argc == 4){
-        des = calloc(strlen(argv[3]), sizeof(char));
+        free(des);
+        des = calloc(strlen(argv[3])+18, sizeof(char));
         strncpy(des, argv[3], strlen(argv[3]));
     }else{
         des = NULL;
